@@ -1,0 +1,1774 @@
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Serif+TC:wght@400;700&display=swap');
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #666;
+    --accent-color: #d4a373;
+    --secondary-bg: #2a2a2a;
+    --card-bg: #333;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+.subtitle,
+.lead-text,
+.chapter-desc {
+    font-family: 'Noto Serif TC', serif;
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+/* Navigation Bar */
+#main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #81C3D7;
+    z-index: 1000;
+    padding: 1rem 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#main-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin: 0;
+    padding: 0;
+}
+
+#main-nav a {
+    color: #555;
+    /* Default gray */
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+
+#main-nav a.active {
+    color: white;
+    /* Active white */
+}
+
+#main-nav a:hover {
+    color: white;
+}
+
+/* Section: Opening Video */
+#opening-video {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    z-index: 20;
+    /* Above the fixed background of hero */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#opening-video video,
+#opening-video iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+}
+
+#opening-video .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    /* Optional overlay */
+    z-index: 2;
+}
+
+/* Section 0: Hero (Gauguin Effect) */
+#hero {
+    position: relative;
+    height: 150vh;
+    /* Allow scroll space for effect */
+    width: 100%;
+    overflow: hidden;
+    color: white;
+}
+
+.background-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    transition: opacity 0.1s linear;
+}
+
+
+#bg-gauguin {
+    z-index: -1;
+    /* Fallback color/image */
+    background-color: #2b3a42;
+    /* Ideally replace with real Gauguin image */
+    background-image: url('test-img/cover0.jpg');
+}
+
+#bg-market {
+    z-index: -2;
+    background-image: url('test-img/cover1.webp');
+}
+
+.title-container {
+    position: absolute;
+    top: 50vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.title-container h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: #ddd;
+}
+
+/* Spacing after Fixed Hero */
+/* Because Hero is 150vh effectively for scroll, we need a spacer or margin */
+#intro {
+    position: relative;
+    /* 設定相對定位 */
+    z-index: 2;
+    /* 確保內容層級高於背景 */
+    /* 確保區塊位於固定背景之上 */
+    margin-top: 100vh;
+    /* 頂部邊距設為全螢幕高度，讓出空間展示下方背景 */
+    background-color: var(--bg-color);
+    /* 設定背景顏色 */
+    padding: 0 2rem;
+    /* 設定水平內邊距，垂直交由子元素處理 */
+    min-height: 300vh;
+    /* 設定最小高度為 300% 視窗高度，創造滾動空間 */
+    display: flex;
+    /* 使用彈性佈局 */
+    justify-content: center;
+    /* 水平置中 */
+    align-items: flex-start;
+    /* 改為頂部對齊，配合 sticky 效果 */
+    /* 添加向上陰影以與背景融合 */
+    /* 添加向上陰影以與背景融合 */
+    /* overflow: hidden; MOVED TO BG LAYER */
+}
+
+/* Dynamic Background Layer */
+.intro-bg-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    /* Ensure images don't spill out here */
+    /* Let clicks pass through */
+}
+
+.intro-bg-image {
+    position: absolute;
+    opacity: 0;
+    /* Hidden by default */
+    object-fit: cover;
+    transition: opacity 2s ease-in-out;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.intro-bg-image.visible {
+    opacity: 0.8;
+    /* Show */
+}
+
+.text-container {
+    max-width: 800px;
+    text-align: center;
+    position: sticky;
+    /* 啟用黏性定位 */
+    top: 50vh;
+    transform: translateY(-50%);
+    /* 固定在視窗頂部 */
+    height: auto;
+    /* Let content define height */
+    max-height: 80vh;
+    /* Prevent overflow on small screens */
+    overflow-y: auto;
+    /* Scroll if text is too long */
+    /* 佔滿視窗高度 */
+    display: flex;
+    /* 內部垂直置中 */
+    flex-direction: column;
+    justify-content: center;
+
+    /* Frosted Glass Effect */
+    position: relative;
+    /* Change from sticky? Wait, if sticky is needed for scroll, we keep sticky. */
+    /* The original code had position: sticky */
+    position: sticky;
+    z-index: 10;
+    /* Above background */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.6);
+    /* Semi-transparent white */
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.lead-text {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.highlight {
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+}
+
+/* Common Section Styles */
+.chapter-wrapper,
+.scrolly-container {
+    padding: 4rem 2rem;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    background-color: var(--bg-color);
+}
+
+.chapter-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+}
+
+.chapter-header h2 {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Section 2: Vendor Profiles (Presentation Slide Layout) */
+/* Reset global constraints for this section if needed, or ensuring these are full width */
+
+/* NEW: Chapter 2 Intro Styling */
+.intro-sticky-wrapper {
+    position: relative;
+    height: 250vh;
+    /* Scroll space */
+    background: white;
+    z-index: 5;
+}
+
+.intro-content {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    overflow: hidden;
+    /* Hide scaled overflow */
+}
+
+.intro-title {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+    font-weight: bold;
+}
+
+.intro-subtitle {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #555;
+    font-weight: bold;
+}
+
+.intro-text {
+    max-width: 800px;
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    color: #444;
+    line-height: 1.8;
+}
+
+/* NEW: Chapter 1 Scrollytelling Styling */
+.story-sticky-wrapper {
+    position: relative;
+    height: 300vh;
+    /* Long scroll for effect */
+    background-color: white;
+    z-index: 5;
+}
+
+.story-sticky-content {
+    position: sticky;
+    top: 5%;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.story-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    /* Hidden initially */
+    z-index: 1;
+    transition: opacity 0.1s linear;
+    /* JS controlled */
+}
+
+.story-fg {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.7);
+    /* Subtle backing for readability if overlaps */
+    backdrop-filter: blur(5px);
+    opacity: 1;
+    /* Initially visible */
+}
+
+/* Delayed Fade In Animation */
+.delayed-fade-in {
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+    animation-delay: 0.5s;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* NEW: Chapter 1 Section C (Standard Scrollytelling) */
+.history-scrolly-wrapper {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    background-color: white;
+}
+
+/* 1. Left: Scrollable Text */
+.history-text-col {
+    width: 45%;
+    padding: 2rem;
+    position: relative;
+    z-index: 10;
+}
+
+.step-text {
+    height: 300vh;
+    /* Long scroll step */
+    position: relative;
+    margin-bottom: 0;
+}
+
+.step-header {
+    /* Sticky Header: Year + Subtitle */
+    position: -webkit-sticky;
+    position: sticky;
+    top: 5vh;
+    /* Top margin when stuck */
+    height: 90vh;
+    /* Sufficient height to center content locally if needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Vertically centered initially */
+    align-items: flex-start;
+    /* Ensure it doesn't overlap text below too early if we want space */
+    margin-bottom: 0;
+}
+
+/* Adjusted for "Move UP then Stick" Effect 
+   Actually, sticky top means it sticks when it HITS top.
+   To make it "start centered" relative to the viewport when you arrive:
+   We can give the whole .step-text padding-top.
+*/
+
+.step-body {
+    /* Description Content */
+    position: relative;
+
+    /* Shortened height/spacing as requested */
+    margin-top: 30vh;
+    padding-bottom: 30vh;
+    min-height: 40vh;
+
+    background: rgba(255, 255, 255, 0.9);
+
+    /* Alignment */
+    text-align: left;
+    padding-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Vertically center content */
+    /* Slight bg to ensure readabilty over anything */
+}
+
+
+/* 2. Right: Sticky Image Column */
+.history-image-col {
+    width: 50%;
+    /* No fixed height, it flows with content */
+    position: relative;
+    background-color: #f0f0f0;
+}
+
+.step-image-container {
+    height: 300vh;
+    /* Sync with Left Step */
+    position: relative;
+}
+
+.sticky-img-wrapper {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.sticky-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Keep Typography */
+.hist-year {
+    font-size: 5rem;
+    font-weight: 800;
+    color: #e9c46a;
+    line-height: 1;
+}
+
+.hist-subtitle {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.hist-desc {
+    color: #555;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* NEW: Interstitial Quote */
+.interstitial-quote {
+    height: 200vh;
+    /* Long scroll spacer */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+}
+
+.quote-content {
+    position: sticky;
+    top: 50vh;
+    transform: translateY(-50%);
+    padding: 2rem;
+}
+
+/* NEW: Event List Styling (Section D) */
+.clean-text-section {
+    background-color: white;
+    padding-bottom: 4rem;
+}
+
+ul.event-list {
+    list-style: none;
+    padding: 0;
+}
+
+ul.event-list li {
+    padding: 1.5rem;
+    border-left: 4px solid #81C3D7;
+    /* Theme color */
+    background: #f9f9f9;
+    margin-bottom: 1.5rem;
+    border-radius: 0 8px 8px 0;
+}
+
+.event-date {
+    font-weight: 700;
+    color: #81C3D7;
+    margin-bottom: 0.5rem;
+}
+
+.event-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.event-desc {
+    color: #555;
+    line-height: 1.6;
+}
+
+/* NEW: Section E (Static) */
+.static-story-section {
+    position: relative;
+    background-color: white;
+}
+
+.static-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    /* Hero height */
+    overflow: hidden;
+}
+
+.static-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.static-title-overlay {
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    z-index: 2;
+}
+
+/* NEW: Chapter Transition */
+.chapter-transition {
+    padding: 6rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    text-align: center;
+}
+
+.transition-line {
+    width: 2px;
+    height: 100px;
+    background-color: #ddd;
+    margin: 2rem 0;
+}
+
+.transition-text {
+    font-size: 1.5rem;
+    color: #888;
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+.intro-icons {
+    display: flex;
+    gap: 4rem;
+    justify-content: center;
+    align-items: flex-end;
+    /* Align bottom */
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 2rem;
+}
+
+.icon-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.1s linear, opacity 0.1s linear;
+    /* JS driven */
+}
+
+.icon-placeholder img {
+    border-radius: 50%;
+    /* Make them circular for now or fit style */
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+}
+
+.icon-box p {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+
+.vendor-profile-section {
+    position: relative;
+    min-height: 180vh;
+    /* Scroll duration */
+    background-color: var(--bg-color);
+    border-bottom: 2px solid #333;
+    overflow: hidden;
+    /* Prevent spillover */
+}
+
+/* The Fixed Slide Container */
+.vendor-sticky-container {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100vh;
+    /* Full Viewport Height */
+    display: grid;
+    grid-template-rows: 70% 30%;
+    /* Top 70%, Bottom 30% */
+}
+
+/* TOP ROW: Info (Left) + Photo (Right) */
+.vendor-top {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    /* Adjust ratio as needed */
+    height: 100%;
+    /* Fills the 70% row */
+}
+
+.vendor-info {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* === Vendor Color Themes (CSS Variables) === */
+
+.vendor-profile-section {
+    --theme-primary: #333;
+    --theme-bg: #E8E8E8;
+    --theme-text: #fff;
+    --theme-quote-text: #000;
+}
+
+.quote-text {
+    text-align: center;
+}
+
+/* Specific Themes */
+.theme-green {
+    --theme-primary: #526F35;
+    /* Olive Green */
+    --theme-bg: #D6A665;
+    /* Sandy Brown */
+}
+
+.theme-red {
+    --theme-primary: #A93226;
+    --theme-bg: #E6B0AA;
+    /* Light Red/Pink */
+}
+
+.theme-blue {
+    --theme-primary: #2E86C1;
+    --theme-bg: #AED6F1;
+    /* Light Blue */
+}
+
+.theme-olive {
+    --theme-primary: #6B8E23;
+    --theme-bg: #DAF7A6;
+    /* Light Olive */
+}
+
+.theme-beige {
+    --theme-primary: #D4B996;
+    --theme-bg: #F9E79F;
+    /* Lighter Beige */
+    --theme-text: #333;
+}
+
+/* Apply Colors */
+.vendor-info {
+    background-color: var(--theme-primary);
+    color: var(--theme-text);
+}
+
+.vendor-bottom {
+    background-color: #DCA15F;
+    height: 1000vh;
+}
+
+/* === Map Directory Section === */
+.map-visual-container {
+    width: 100%;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #FFFAF0 url('https://www.transparenttextures.com/patterns/graphy.png');
+    min-height: 80vh;
+    /* Make it substantial */
+    justify-content: center;
+}
+
+.map-header-group {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.map-nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    width: 100%;
+    max-width: 1000 px;
+    margin-top: 2rem;
+}
+
+.map-nav-btn {
+    padding: 1rem;
+    background: white;
+    border: 2px solid #333;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: transform 0.2s, background 0.2s;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.map-nav-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.2);
+    background: #f0f0f0;
+}
+
+/* === Vendor Bottom Layout === */
+
+.vendor-bottom {
+    padding: 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: #333;
+    position: relative;
+    box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Quote Bubble */
+.quote-bubble {
+    background: white;
+    border-radius: 40px;
+    padding: 2rem 3rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.quote-text {
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+    flex: 1;
+}
+
+/* Audio Icon */
+.audio-icon-btn {
+    width: 50px;
+    height: 50px;
+    background-color: #E69538;
+    color: white;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+
+.audio-icon-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Description */
+.vendor-desc-block {
+    max-width: 1100px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #222;
+    font-weight: 500;
+}
+
+/* Footer: Extra Photo + Back Button */
+.vendor-footer-row {
+    display: flex;
+    justify-content: flex-end;
+    /* Right aligned */
+    align-items: flex-end;
+    gap: 1rem;
+    margin-top: 5rem;
+    width: 100%;
+    max-width: 1100px;
+}
+
+.footer-photo {
+    width: 300px;
+    height: 200px;
+    background: #fff;
+    border: 4px solid white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.footer-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.back-btn {
+    padding: 0.5rem 1rem;
+    background: white;
+    color: #555;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background 0.2s;
+}
+
+.back-btn:hover {
+    background: #eee;
+}
+
+.vendor-info h3 {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.vendor-info .intro {
+    font-size: 1.2rem;
+    color: #ccc;
+    font-weight: 300;
+}
+
+.vendor-photo {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.vendor-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* object-position: center; */
+}
+
+/* BOTTOM ROW: Detailed Text */
+.vendor-detail-text {
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #ddd;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.vendor-detail-text .quote {
+    border-left: 4px solid var(--accent-color);
+    padding-left: 1.5rem;
+    flex: 1;
+    font-style: italic;
+    color: #fff;
+}
+
+.vendor-detail-text .desc {
+    flex: 2;
+}
+
+/* Audio Button styling update */
+.audio-btn {
+    margin-top: 1rem;
+    background: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s;
+}
+
+.audio-btn:hover {
+    background: var(--accent-color);
+    color: #000;
+}
+
+/* Quote style adjustment */
+.quote {
+    font-size: 1.2rem;
+    color: #ccc;
+}
+
+.audio-btn {
+    background: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    border-radius: 4px;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+}
+
+.audio-btn:hover {
+    background: var(--accent-color);
+    color: var(--bg-color);
+}
+
+/* Section 3: Flip Cards */
+.flip-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.flip-card {
+    background-color: transparent;
+    width: 100%;
+    /* Remove fixed height, let content dictate */
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    /* overflow: hidden; Removed to fix 3D context */
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    width: 100%;
+    height: 100%;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    /* Revert front to absolute? No, wait. Relative front is needed for height. */
+    /* If Front is relative, it takes space. If Back is absolute, it sits on top. */
+    /* If Back is rotated 180, it should be facing away. */
+    /* If Front is 0, it is facing user. */
+    /* Rotated 180: Front is 180 (away), Back is 360/0 (facing user). */
+    /* Issue: If user sees "Reversed Front", it means Front is NOT hidden. */
+    /* Force background color on back to cover? */
+    /* Force background color on back to cover? */
+    border-radius: 12px;
+    overflow: hidden;
+    /* Apply here instead */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    /* Remove padding to let image fill */
+}
+
+.flip-card-front {
+    position: relative;
+    /* Front defines height */
+    z-index: 2;
+    transform: rotateY(0deg);
+
+    /* Let the front (image) define the height */
+    background-color: transparent;
+    color: transparent;
+    padding: 0;
+    background-color: transparent;
+    color: transparent;
+    padding: 0;
+    z-index: 2;
+    /* Ensure Front is "above" back initially? No, context is 3d. */
+    transform: rotateX(0deg);
+    /* Explicitly set transform */
+
+}
+
+.flip-card-back {
+    position: absolute;
+    /* Back sits on top/behind */
+    top: 0;
+    left: 0;
+    background-color: white;
+    /* Give valid background to cover front? */
+    color: transparent;
+    transform: rotateY(180deg);
+}
+
+.flip-card-back p {
+    font-size: 1.1rem;
+    padding: 0 1rem;
+}
+
+/* Extended: Data Viz */
+#data-viz {
+    background-color: var(--secondary-bg);
+    padding: 4rem 2rem;
+    margin-top: 2rem;
+}
+
+.progress-container {
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.progress-bar-bg {
+    background-color: #555;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    /* JS will animate this */
+    background: linear-gradient(90deg, #d4a373, #e9c46a);
+    transition: width 2s ease-out;
+}
+
+/* Map Section */
+#map {
+    height: 400px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 2rem auto;
+    background-color: #ccc;
+    /* Placeholder */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+/* CTA: Wish Wall */
+#cta {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.wish-wall {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.wish-note {
+    background-color: #ffe66d;
+    color: #333;
+    padding: 1rem;
+    width: 200px;
+    height: 200px;
+    font-family: 'Indie Flower', handwriting, sans-serif;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transform: rotate(-2deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.wish-note:nth-child(even) {
+    transform: rotate(3deg);
+    background-color: #ff6b6b;
+    color: white;
+}
+
+.wish-form {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.wish-form textarea {
+    width: 300px;
+    height: 100px;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: none;
+    font-family: inherit;
+}
+
+.wish-form button {
+    padding: 0.5rem 2rem;
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* New: Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+    .title-container h1 {
+        font-size: 2rem;
+    }
+
+    .interview-wrapper {
+        flex-direction: column;
+    }
+
+    .sticky-visual {
+        position: relative;
+        /* Unstick on mobile usually better unless carefully done */
+        width: 100%;
+        height: 50vh;
+        top: 0;
+        margin-bottom: 2rem;
+    }
+
+    .scroll-text {
+        width: 100%;
+    }
+
+    .step {
+        min-height: auto;
+        padding: 2rem 0;
+        opacity: 1;
+        /* Always visible on mobile */
+    }
+
+    /* === Horizontal Pin & Scroll Section === */
+    .horizontal-pin-container {
+        width: 100%;
+        /* Key: This defines how long users have to scroll to see all images */
+        height: 400vh;
+        position: relative;
+        background-color: white;
+    }
+
+    .pin-sticky-wrapper {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        /* Hide overflow */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .horizontal-track-mask {
+        width: 100%;
+        overflow: hidden;
+        margin-top: 4rem;
+        /* Space below title */
+        padding-bottom: 2rem;
+    }
+
+    .horizontal-track {
+        display: flex;
+        flex-wrap: nowrap;
+        /* CRITICAL FIX: Prevent wrapping */
+        gap: 4rem;
+        /* Spread out images */
+        padding-left: 50vw;
+        /* Start with first image center-ish or right */
+        will-change: transform;
+        /* JS will control transform: translateX() */
+    }
+
+    /* Update scroll items to be a bit nicer in this mode */
+    .horizontal-track .scroll-item {
+        width: 400px;
+        /* Larger items */
+        flex-shrink: 0;
+        /* CRITICAL FIX: Prevent squishing */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .horizontal-track .scroll-item img {
+        height: 300px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* === Vertical Section Refinement === */
+    /* Clean style overrides */
+    .vertical-scroll-layout.clean-style {
+        background-color: white;
+        /* Match Chapter 1 */
+        padding: 0;
+        display: flex;
+        /* CRITICAL FIX: Side by side */
+        flex-direction: row;
+        align-items: flex-start;
+        /* sticky needs this or stretch */
+        position: relative;
+        width: 100%;
+    }
+
+    .vertical-scroll-layout.clean-style .scrolling-img-col {
+        background-color: white;
+        /* No gray */
+        padding-right: 0;
+        width: 50%;
+        /* Explicit width */
+        flex: 0 0 50%;
+    }
+
+    .vertical-scroll-layout.clean-style .sticky-text-col {
+        border-right: none;
+        border-left: none;
+        /* Removed border to match clean look */
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        /* Center horizontally */
+        align-items: center;
+        /* Center vertically if needed */
+        width: 50%;
+        /* Explicit width */
+        flex: 0 0 50%;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        /* Needed for sticky centering */
+    }
+
+    /* Ensure sticky text is centered vertically if desired, or top aligned */
+    .vertical-scroll-layout.clean-style .sticky-text-content {
+        /* top: 30vh; Removed, handled by flex center in parent */
+        /* Consistent with other sticky elements */
+        max-width: 600px;
+        /* Constrain width for better readability */
+        text-align: center;
+        /* Center text alignment as per reference */
+        width: 100%;
+        padding: 0 2rem;
+    }
+
+    /* Typography specifics to match Chapter 1 Reference */
+    .vertical-scroll-layout.clean-style h2.intro-title {
+        font-size: 3rem;
+        /* Larger, like reference */
+        font-weight: 500;
+        /* refined weight */
+        color: #81C3D7;
+        /* CHANGED: Blue Theme */
+        margin-bottom: 2rem;
+        letter-spacing: 0.05em;
+    }
+
+    .vertical-scroll-layout.clean-style h3 {
+        font-size: 2rem;
+        color: #555;
+        margin-bottom: 1.5rem;
+    }
+
+    .vertical-scroll-layout.clean-style p.intro-text {
+        font-size: 1.1rem;
+        line-height: 2;
+        /* looser line height */
+        color: #666;
+        font-weight: 400;
+    }
+}
+
+/* Update Consumer Section Title as well if it shares classes or needs specific override via ID */
+#consumer-pin-container .intro-title {
+    color: #81C3D7 !important;
+}
+
+/* === Consumer Section: Horizontal Sticky Scroll === */
+#consumer-pin-container {
+    height: 400vh;
+    /* Long vertical scroll area */
+    position: relative;
+    background-color: white;
+}
+
+.pin-sticky-wrapper {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.horizontal-track-mask {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    /* Center images vertically in the space */
+    position: relative;
+}
+
+.horizontal-track {
+    display: flex;
+    /* Row layout */
+    gap: 4rem;
+    padding-left: 10%;
+    /* Start a bit in */
+    width: max-content;
+    /* Allow growing horizontally */
+    will-change: transform;
+}
+
+.scroll-item {
+    width: 600px;
+    /* Fixed width for images */
+    flex-shrink: 0;
+}
+
+.scroll-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* === Chapter 2-5: Committee Section === */
+.committee-section {
+    padding-top: 4rem;
+    background-color: white;
+}
+
+.committee-feature-img {
+    position: relative;
+    width: 50%;
+    max-width: 500px;
+    margin: 0 auto 6rem auto;
+}
+
+.committee-feature-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.committee-feature-img .caption {
+    margin-top: 1rem;
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Split Layout: Left Scroll, Right Sticky */
+.committee-split-layout {
+    display: flex;
+    position: relative;
+    width: 100%;
+    /* Ensure container is tall enough essentially via left col content */
+}
+
+.committee-left-col {
+    width: 50%;
+    padding: 2rem;
+    background-color: #f9f9f9;
+}
+
+.committee-img-item {
+    width: 100%;
+    height: 80vh;
+    /* Takes up substantial vertical space */
+    overflow: hidden;
+}
+
+.committee-img-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.committee-right-col {
+    width: 50%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    /* Center Vertically */
+    justify-content: center;
+    padding: 4rem;
+    background-color: white;
+}
+
+.sticky-text-wrapper {
+    max-width: 500px;
+}
+
+.sticky-text-wrapper h3 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.sticky-text-wrapper p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+}
+
+/* Mobile Responsive for Committee */
+@media (max-width: 768px) {
+    .committee-split-layout {
+        flex-direction: column-reverse;
+        /* Text on top or bottom? users usually read text then see img */
+        /* Let's keep normal flow: Text then Images usually, or Images then Text? 
+           User request: "Left image, Right text fixed". 
+           On mobile, usually stack: Image, Text, Image, Text OR Text block then Images.
+           Let's just stack them normally.
+        */
+        flex-direction: column;
+    }
+
+    .committee-left-col,
+    .committee-right-col {
+        width: 100%;
+        height: auto;
+        position: relative;
+        /* Unstick */
+    }
+}
+
+
+/* === Chapter 3: Floating Bubbles UI (Sticky) === */
+.floating-sticky-wrapper {
+    position: relative;
+    height: 300vh;
+    /* Scroll distance */
+    background-color: #f2f2f2;
+}
+
+.floating-section {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.floating-bubble {
+    position: absolute;
+    background-color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    /* Rounded pill shape */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-size: 1.1rem;
+    color: #555;
+    opacity: 0;
+    pointer-events: none;
+    /* Let clicks pass through if needed */
+    white-space: nowrap;
+    animation: floatCycle 12s infinite;
+}
+
+/* Specific Bubbles Positioning (16 items) */
+.floating-bubble:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.floating-bubble:nth-child(2) {
+    top: 15%;
+    left: 40%;
+    animation-delay: 2s;
+}
+
+.floating-bubble:nth-child(3) {
+    top: 25%;
+    left: 30%;
+    animation-delay: 5s;
+}
+
+.floating-bubble:nth-child(4) {
+    top: 30%;
+    left: 20%;
+    animation-delay: 1s;
+}
+
+.floating-bubble:nth-child(5) {
+    top: 40%;
+    left: 15%;
+    animation-delay: 6s;
+}
+
+.floating-bubble:nth-child(6) {
+    top: 45%;
+    left: 35%;
+    animation-delay: 3s;
+}
+
+.floating-bubble:nth-child(7) {
+    top: 55%;
+    left: 35%;
+    animation-delay: 7s;
+}
+
+.floating-bubble:nth-child(8) {
+    top: 60%;
+    left: 10%;
+    animation-delay: 4s;
+}
+
+.floating-bubble:nth-child(9) {
+    top: 65%;
+    left: 40%;
+    animation-delay: 8s;
+}
+
+.floating-bubble:nth-child(10) {
+    top: 70%;
+    left: 25%;
+    animation-delay: 2s;
+}
+
+.floating-bubble:nth-child(11) {
+    top: 75%;
+    left: 20%;
+    animation-delay: 5s;
+}
+
+.floating-bubble:nth-child(12) {
+    top: 80%;
+    left: 60%;
+    animation-delay: 1s;
+}
+
+.floating-bubble:nth-child(13) {
+    top: 85%;
+    left: 30%;
+    animation-delay: 6s;
+}
+
+.floating-bubble:nth-child(14) {
+    top: 20%;
+    left: 50%;
+    animation-delay: 3s;
+}
+
+.floating-bubble:nth-child(15) {
+    top: 50%;
+    left: 5%;
+    animation-delay: 7s;
+}
+
+.floating-bubble:nth-child(16) {
+    top: 90%;
+    left: 45%;
+    animation-delay: 4s;
+}
+
+@keyframes floatCycle {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+    }
+
+    5% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    30% {
+        opacity: 1;
+        transform: translateY(-20px) scale(1);
+    }
+
+    35% {
+        opacity: 0;
+        transform: translateY(-40px) scale(0.9);
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Highlight Text Effect */
+.highlight-text-section {
+    padding: 6rem 2rem;
+    background-color: white;
+    text-align: center;
+}
+
+.committee-response-text-section {
+    padding: 6rem 2rem;
+    background-color: white;
+    text-align: center;
+    position: sticky;
+    top: 5%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.committee-response-wrapper {
+    position: relative;
+    height: 200vh;
+    /* Scroll distance */
+    background-color: #f2f2f2;
+}
+
+.highlight-marker {
+    background: linear-gradient(120deg, rgba(255, 215, 0, 0.5) 0%, rgba(255, 215, 0, 0.5) 100%);
+    background-repeat: no-repeat;
+    background-size: 0% 45%;
+    /* Initially hidden width */
+    background-position: 0 88%;
+    font-weight: bold;
+    color: #333;
+    transition: background-size 1.5s ease;
+    /* Smooth transition */
+}
+
+.highlight-marker.visible {
+    background-size: 100% 45%;
+    /* Full width when visible */
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .floating-bubble {
+        font-size: 0.9rem;
+        padding: 0.8rem 1.2rem;
+        white-space: normal;
+        /* Allow wrap on mobile */
+        max-width: 250px;
+        text-align: center;
+    }
+}
