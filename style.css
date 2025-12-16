@@ -48,6 +48,14 @@ a {
     z-index: 1000;
     padding: 1rem 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transform: translateY(-100%);
+    /* Hidden by default */
+    transition: transform 0.3s ease-in-out;
+}
+
+#main-nav.nav-visible {
+    transform: translateY(0);
+    /* Visible state */
 }
 
 #main-nav ul {
@@ -175,28 +183,40 @@ a {
 /* Because Hero is 150vh effectively for scroll, we need a spacer or margin */
 #intro {
     position: relative;
-    /* 設定相對定位 */
     z-index: 2;
-    /* 確保內容層級高於背景 */
-    /* 確保區塊位於固定背景之上 */
     margin-top: 100vh;
-    /* 頂部邊距設為全螢幕高度，讓出空間展示下方背景 */
     background-color: var(--bg-color);
-    /* 設定背景顏色 */
     padding: 0 2rem;
-    /* 設定水平內邊距，垂直交由子元素處理 */
-    min-height: 300vh;
-    /* 設定最小高度為 300% 視窗高度，創造滾動空間 */
+    /* Let content define height */
     display: flex;
-    /* 使用彈性佈局 */
-    justify-content: center;
-    /* 水平置中 */
-    align-items: flex-start;
-    /* 改為頂部對齊，配合 sticky 效果 */
-    /* 添加向上陰影以與背景融合 */
-    /* 添加向上陰影以與背景融合 */
-    /* overflow: hidden; MOVED TO BG LAYER */
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
+
+.intro-region {
+    width: 100%;
+    height: 300vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* Sticky works best with this */
+}
+
+.intro-region:first-of-type {
+    padding-top: 10vh;
+    /* Delay the start of the first region text */
+}
+
+.intro-region:first-of-type .text-container {
+    top: 15vh;
+    /* Clear nav bar */
+    transform: none;
+    /* Remove centering for first region */
+}
+
+
 
 /* Dynamic Background Layer */
 .intro-bg-layer {
@@ -237,7 +257,6 @@ a {
     /* 固定在視窗頂部 */
     height: auto;
     /* Let content define height */
-    max-height: 80vh;
     /* Prevent overflow on small screens */
     overflow-y: auto;
     /* Scroll if text is too long */
@@ -431,9 +450,9 @@ a {
 
 .step-header {
     /* Sticky Header: Year + Subtitle */
-    position: -webkit-sticky;
     position: sticky;
-    top: 5vh;
+    top: 12vh;
+    /* Top margin when stuck */
     /* Top margin when stuck */
     height: 90vh;
     /* Sufficient height to center content locally if needed */
@@ -680,9 +699,9 @@ ul.event-list li {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
+    /* margin-left: auto;  Removed for full width */
+    /* margin-right: auto; Removed for full width */
     height: 100vh;
     /* Full Viewport Height */
     display: grid;

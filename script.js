@@ -438,4 +438,22 @@ document.addEventListener('DOMContentLoaded', () => {
         // Spawn a new image every 800ms
         setInterval(spawnRandomImage, 800);
     }
+    /* =========================================
+       11. Scroll-Triggered Navigation
+       ========================================= */
+    const mainNav = document.getElementById('main-nav');
+    const chapter1 = document.getElementById('chapter-1');
+
+    if (mainNav && chapter1) {
+        window.addEventListener('scroll', () => {
+            // Trigger when near the top of Chapter 1
+            const triggerPoint = chapter1.offsetTop - 100;
+            if (window.scrollY >= triggerPoint) {
+                mainNav.classList.add('nav-visible');
+            } else {
+                mainNav.classList.remove('nav-visible');
+            }
+        });
+    }
+
 });
