@@ -686,7 +686,7 @@ ul.event-list li {
 
 .vendor-profile-section {
     position: relative;
-    min-height: 180vh;
+    min-height: 150vh;
     /* Scroll duration */
     background-color: var(--bg-color);
     border-bottom: 2px solid #333;
