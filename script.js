@@ -382,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'img/r12.JPG',
             'img/r13.JPG',
             'img/r14.JPG',
-            'img/r15.jpg',
+            'img/r15.JPG',
             'img/r16.JPG',
             'img/r17.JPG',
             'img/r18.jpg',
