@@ -805,7 +805,7 @@ ul.event-list li {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1rem;
     width: 100%;
-    max-width: 1000 px;
+    max-width: 1000px;
     margin-top: 2rem;
 }
 
@@ -835,6 +835,7 @@ ul.event-list li {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center; 
     color: #333;
     position: relative;
     box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.05);
