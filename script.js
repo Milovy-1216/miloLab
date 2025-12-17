@@ -405,8 +405,8 @@ document.addEventListener('DOMContentLoaded', () => {
             img.classList.add('intro-bg-image');
 
             // Random positioning and sizing
-            // Increased size as requested: 300px - 700px
-            const size = Math.floor(Math.random() * 400) + 300;
+            // Increased size as requested: 300px - 900px
+            const size = Math.floor(Math.random() * 400) + 500;
             const maxLeft = introBgLayer.offsetWidth - size;
             const maxTop = introBgLayer.offsetHeight - size;
 
@@ -435,8 +435,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 3000); // Display duration
         }
 
-        // Spawn a new image every 800ms
-        setInterval(spawnRandomImage, 800);
+        // Spawn a new image every 550ms
+        setInterval(spawnRandomImage, 550);
     }
     /* =========================================
        11. Scroll-Triggered Navigation
